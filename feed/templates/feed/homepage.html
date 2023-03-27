@@ -3,5 +3,10 @@
 {% block title %}Home{% endblock title %}
 
 {% block body %}
-    homepage body
+    
+    {% for post in posts %}
+        "{{ post.text }}" written at date {{ post.date }} 
+        <hr>
+    {% endfor %}
+
 {% endblock body %}

@@ -4,12 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock title %}</title>
+    <title>{% block title %}BASE TITLE{% endblock title %}</title>
 </head>
 <body>
     
+    {% if request.user.is_authenticated %}
+        {{ request.user }}
+        <a href="{% url "account_logout" %}">Logout</a>
+    {% else %}
+        You are logged out
+        <a href="{% url "account_login" %}">Login</a>
+    {% endif %}
+
+    <hr>
+
+    USING BASE TEMPLATE
     {% block body %}    
         BASE FILE BODY
+        {% block content %}
+            
+        {% endblock content %}
     {% endblock body %}
 
 
