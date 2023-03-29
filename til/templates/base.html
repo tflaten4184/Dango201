@@ -32,9 +32,9 @@
           {% if request.user.is_authenticated %}
 
           <li>
-              <a href="{% url "feed:new_post" %}" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-              <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-plus-circle"></i></span>
-              <span class="text-sm font-medium">New Post</span>
+              <a href="{% url "feed:new_post" %}" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800 js-toggle-modal">
+                <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-plus-circle"></i></span>
+                <span class="text-sm font-medium">New Post</span>
               </a>
           </li>
 
@@ -94,7 +94,7 @@
       </div>
     {% endif %}
 
-    <script src="{% static 'js/main.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>
