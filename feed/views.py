@@ -22,3 +22,4 @@ class CreatePostView(CreateView):
     model = Post
     # context_object_name = "post"
     fields = ["text"]
+    
