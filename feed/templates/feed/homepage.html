@@ -6,7 +6,6 @@
 {% block body %}
     
     {% for post in posts %}
-        {% comment %} "{{ post.text }}" written at date {{ post.date }}  {% endcomment %}
         
         {% include "includes/post.html" with post=post show_detail_link=True %}
         
