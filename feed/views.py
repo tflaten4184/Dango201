@@ -14,12 +14,8 @@ class PostDetailView(DetailView):
     template_name = "feed/detail.html"
     model = Post
     context_object_name = "post"
-    # queryset = ?
 
 class CreatePostView(CreateView):
-    # http_method_names = ["get"]
     template_name = "feed/create_post.html"
     model = Post
-    # context_object_name = "post"
     fields = ["text"]
-    
