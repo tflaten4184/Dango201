@@ -30,8 +30,9 @@ $.ajaxSetup({
     },
 });
 
-
+// Applied to both "New Post" in navbar, and 'X' in model
 $(document).on("click", ".js-toggle-modal", function(e) {
     e.preventDefault();
     console.log("Hello I was clicked");
+    $(".js-modal").toggleClass("hidden");
 })
