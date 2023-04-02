@@ -1,4 +1,3 @@
-console.log("Hello world");
 
 $.ajaxSetup({
     beforeSend: function beforeSend(xhr, settings) {
@@ -33,6 +32,42 @@ $.ajaxSetup({
 // Applied to both "New Post" in navbar, and 'X' in model
 $(document).on("click", ".js-toggle-modal", function(e) {
     e.preventDefault();
-    console.log("Hello I was clicked");
+    console.log("Toggle post modal clicked");
     $(".js-modal").toggleClass("hidden");
-})
+});
+
+$(document).on("click", ".js-submit", function(e) {
+    e.preventDefault();
+    console.log("Creating new post from button");
+    const text = $(".js-post-text").val().trim();
+    const $btn = $(this);
+
+    console.log(text);
+
+    if(!text.length) {
+        return false;
+    }
+
+    $(".js-modal").addClass("hidden");
+    $(".js-post-text").val("");
+
+    $btn.prop("disabled", true).text("Posting!"); //  Disable the button and change the button's text
+    $.ajax({
+        type: 'POST',
+        url: $(".js-post-text").data("post-url"), // POST request to create new Post object
+        data: {
+            text: text // Payload, contents of new Post
+        },
+        success: (dataHtml) => { 
+            $(".js-modal").addClass("hidden"); 
+            $("#posts-container").prepend(dataHtml); // Insert new posts as first child (newest will always be at top)
+            $btn.prop("disabled", false).text("New Post"); // Enable the (hidden) modal button
+            $(".js-post-text").val('');                    // and reset textarea for future use
+        },
+        error: (error) => {
+            console.warn("error");
+            $btn.prop("disabled", false).text("ERROR");
+        }
+    })
+
+});

@@ -65,7 +65,7 @@
     </div>
 
     {% if request.user.is_authenticated %}
-      <!-- component -->
+      <!-- Modal component from https://tailwindcomponents.com/component/a-minimal-simple-modal-that-still-looks-good -->
       <div class="flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-800 bg-opacity-50 js-modal hidden">
         <div class="bg-white rounded-lg w-1/2">
           <div class="flex flex-col items-start p-4">
@@ -76,9 +76,8 @@
             </svg>
             </div>
             <hr>
-            <div class="">
-              {# ToDo: Add the AJAX form #}
-              New post text
+            <div class="w-full">
+              <textarea class="border-2 border-blue-500 my-4 w-full js-post-text" rows="3" placeholder="Enter your post" maxlength="240" data-post-url="{% url "feed:new_post" %}"></textarea>
             </div>
             <hr>
             <div class="ml-auto">
