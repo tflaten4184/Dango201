@@ -68,6 +68,46 @@ $(document).on("click", ".js-submit", function(e) {
             console.warn("error");
             $btn.prop("disabled", false).text("ERROR");
         }
-    })
+    });
+})
+.on("click", ".js-follow", function(e) {
+    e.preventDefault();
+    console.log("follow clicked");
 
-});
+    // Data available in template: data-username="{{ user.username }}" data-action="follow" data-url="{% url "profiles:follow" user.id %}"
+    // Guess for how we'll implement this:
+    // Get current user (follower)
+    // Get target user (to follow)
+    // Create a Follower object (relating the two users)
+    // Use an AJAX request to update the "follow" button to "unfollow"
+
+    const action = $(this).attr("data-action") // "action" can be follows or unfollows. In this case, follows.
+
+    $.ajax({
+        type: 'POST',
+        url: $(this).data("url"), // POST request to create new Follower object
+        data: {
+            action: action,
+            username: $(this).data("username"),
+        },
+        success: (data) => { 
+            console.log(data);
+            // Change button to indicate already following (data-action = "unfollow")
+            // Return JSON data
+            $(".js-follow-text").text(data.wording);
+
+            if (action == "follow") {
+                console.log("DEBUG", "follow");
+                // change wording to "unfollow"
+                $(this).attr("data-action", "unfollow");
+            } else {
+                console.log("DEBUG", "unfollow");
+                // change wording to "follow"
+                $(this).attr("data-action", "follow");
+            }
+        },
+        error: (error) => {
+            console.warn("error");
+        }
+    });
+})
