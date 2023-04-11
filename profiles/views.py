@@ -1,4 +1,5 @@
 from typing import Any, Dict
+from django import http
 from django.contrib.auth.models import User
 from django.views.generic import DetailView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,12 +16,20 @@ class ProfileDetailView(DetailView):
     slug_field = "username"
     slug_url_kwarg = "username"
 
+    def dispatch(self, request, *args, **kwargs):
+
+        self.request = request
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         user = self.get_object()
         context =  super().get_context_data(**kwargs)
         context["total_posts"] = Post.objects.filter(author=user).count()
         # TODO: Total Followers
         # context["total_followers"] = Follower.objects.filter(subject?=user).count() # Replace subject with the field we end up using in Follower
+        if self.request.user.is_authenticated:
+            context['you_follow'] = Follower.objects.filter(following=user, followed_by=self.request.user).exists()
 
         return context
     
@@ -63,5 +72,5 @@ class FollowView(LoginRequiredMixin, View):
 
         return JsonResponse({
             'success': True,
-            'wording': "Unfollow" if data['action'] == "unfollow" else "Follow"
+            'wording': "Unfollow" if data['action'] == "follow" else "Follow"
         })

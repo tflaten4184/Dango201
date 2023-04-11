@@ -72,7 +72,7 @@ $(document).on("click", ".js-submit", function(e) {
 })
 .on("click", ".js-follow", function(e) {
     e.preventDefault();
-    console.log("follow clicked");
+    console.log("follow/unfollow clicked");
 
     // Data available in template: data-username="{{ user.username }}" data-action="follow" data-url="{% url "profiles:follow" user.id %}"
     // Guess for how we'll implement this:
@@ -97,11 +97,11 @@ $(document).on("click", ".js-submit", function(e) {
             $(".js-follow-text").text(data.wording);
 
             if (action == "follow") {
-                console.log("DEBUG", "follow");
+                console.log("DEBUG", "unfollow");
                 // change wording to "unfollow"
                 $(this).attr("data-action", "unfollow");
             } else {
-                console.log("DEBUG", "unfollow");
+                console.log("DEBUG", "follow");
                 // change wording to "follow"
                 $(this).attr("data-action", "follow");
             }
